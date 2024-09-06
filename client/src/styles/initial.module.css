@@ -28,6 +28,7 @@
     color: #333;
     margin-bottom: 20px;
     text-align: center;
+    font-family: monospace;
 }
 
 /* Input field styling */
@@ -43,7 +44,7 @@
 
 /* Input focus effect */
 .input:focus {
-    border-color: #007bff;
+    border-color: orchid;
     outline: none;
 }
 
@@ -51,7 +52,7 @@
 .loginButton {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
+    background-color: orchid;
     color: white;
     border: none;
     border-radius: 8px;
@@ -63,7 +64,7 @@
 
 /* Button hover effect */
 .loginButton:hover {
-    background-color: #0056b3;
+    background-color: rgb(171, 51, 167);
 }
 
 /* Media query for smaller screens */

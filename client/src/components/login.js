@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router'
-import styles from '../styles/login.module.css'
+import styles from '../styles/initial.module.css'
 function Login({ setLogin }) {
     const navigate = useNavigate()
 
@@ -55,7 +55,7 @@ function Login({ setLogin }) {
                     onChange={(e) => setUser((prev) => ({ ...prev, userName: e.target.value }))} 
                 />
                 <button className={styles.loginButton} onClick={Login}>Log In</button>
-                <p>new user? <span onClick={()=>setLogin(false)}>Register</span></p>
+                <p>new user? <span onClick={()=>setLogin(false)} style={{color: 'orchid', cursor: 'pointer'}}>Register</span></p>
             </div>
         </div>
     )

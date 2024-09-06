@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import styles from '../styles/register.module.css'
+import styles from '../styles/initial.module.css'
 
 function Register({ setLogin }) {
 
@@ -41,7 +41,7 @@ function Register({ setLogin }) {
                 onChange={(e) => setUser((prev) => ({ ...prev, userName: e.target.value }))} 
             />
             <button className={styles.loginButton} onClick={Register}>Register</button>
-            <p>already have an account? <span onClick={()=>setLogin(true)}>Login</span></p>
+            <p>already have an account? <span onClick={()=>setLogin(true)} style={{color: 'orchid', cursor: 'pointer'}}>Login</span></p>
         </div>
     </div>
   )

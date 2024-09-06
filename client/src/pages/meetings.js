@@ -39,10 +39,9 @@ function Meetings() {
                     <li key={index} className={styles.meetingItem}>
                     <div className={styles.meetingDetails}>
                         <strong>Day:</strong> {meeting.day} <br />
-                        <strong>Start Time:</strong> {meeting.start} <br />
-                        <strong>End Time:</strong> {meeting.end} <br />
+                        <strong>Duration:</strong> {meeting.start} - {meeting.end} <br />
                         <Accordion className={styles.accordion}>
-                        <AccordionSummary>
+                        <AccordionSummary expandIcon='&raquo;'>
                             <strong>Attendees</strong>
                         </AccordionSummary>
                         <AccordionDetails>

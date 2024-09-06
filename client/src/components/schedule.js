@@ -42,7 +42,6 @@ const Schedule = ({ isOpen, onClose, employeeName, employeeEmail, startTime, end
     };
 
     const scheduleMeeting = async () => {
-        console.log(selectedEmployees)
         try {
             await axios.post('/user/schedule', {
                 employees: selectedEmployees,

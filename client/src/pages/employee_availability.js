@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import styles from '../styles/employee_availability.module.css';
+import Schedule from '../components/schedule';
 
 function Employee_Availability() {
     const { id } = useParams();
@@ -132,6 +133,7 @@ function Employee_Availability() {
                     )}
                     {selectedTimeSlot && (
                         <div className={styles.timePicker}>
+                            <Typography variant="subtitle1">Available between: {selectedTimeSlot.start} to {selectedTimeSlot.end}</Typography>
                             <Typography variant="subtitle1">Select start time for the selected slot:</Typography>
                             <TextField
                                 type="time"
@@ -149,7 +151,6 @@ function Employee_Availability() {
                                     />
                                 </>
                             )}
-                            <Typography variant="subtitle1">Available between: {selectedTimeSlot.start} to {selectedTimeSlot.end}</Typography>
                         </div>
                     )}
 
@@ -158,20 +159,20 @@ function Employee_Availability() {
                             <Button variant="contained" color="primary" onClick={handleScheduleMeeting}>Schedule Meeting</Button>
                         </div>
                     )}
-                    <Dialog open={isModalOpen} onClose={handleModalClose}>
-                        <DialogTitle>Confirm Meeting</DialogTitle>
-                        <DialogContent>
-                            <Typography variant="h6">Employee: {employee.name}</Typography>
-                            <Typography variant="subtitle1">Email: {employee.email}</Typography>
-                            <Typography variant="subtitle1">Day: {selectedDay.charAt(0).toUpperCase() + selectedDay.slice(1)}</Typography>
-                            <Typography variant="subtitle1">Start Time: {selectedStartTime}</Typography>
-                            <Typography variant="subtitle1">End Time: {selectedEndTime}</Typography>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={handleModalClose}>Close</Button>
-                            <Button onClick={handleModalClose} color="primary">Confirm</Button>
-                        </DialogActions>
-                    </Dialog>
+                    {
+                        isModalOpen &&
+                        <div>
+                            <Schedule
+                                employeeEmail={employee.email}
+                                employeeName={employee.name}
+                                isOpen={isModalOpen}
+                                onClose={handleModalClose}
+                                day={selectedDay}
+                                startTime={selectedStartTime}
+                                endTime={selectedEndTime}
+                            />
+                        </div>
+                    }
                 </>
             )}
         </div>

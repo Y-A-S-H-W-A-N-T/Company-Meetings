@@ -1,49 +1,64 @@
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-}
-
-.availability {
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .availability {
     margin-top: 20px;
-}
-
-.availabilityBoxes {
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  }
+  
+  .availabilityBoxes {
     display: flex;
     justify-content: center;
     gap: 10px;
-}
-
-.dayBox {
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-    background-color: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.dayBox:hover {
-    background-color: #ccc;
-}
-
-.selected {
-    background-color: #333;
-    color: white;
-}
-
-.timePicker {
+    margin-top: 10px;
+  }
+  
+  .timeSlots {
     margin-top: 20px;
-    text-align: center;
+    padding: 1rem;
+    background-color: #fdfdfd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
-input[type="time"] {
-    padding: 5px;
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+.timeSlotOptions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    justify-content: center;
+  }
+  
+  .timePicker {
+    margin-top: 20px;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  }
+  
+  .scheduleButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .dialogContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  @media (max-width: 600px) {
+    .availabilityBoxes,
+    .timeSlotOptions {
+      flex-direction: column;
+    }
+  }
+  
