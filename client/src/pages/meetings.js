@@ -1,0 +1,65 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'
+import styles from '../styles/meeting.module.css'
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+
+function Meetings() {
+    const [meetings, setMeetings] = useState([]);
+
+    const userEmail = window.localStorage.getItem('userEmail');
+    const userName = window.localStorage.getItem('userName');
+
+    useEffect(() => {
+        const fetchMeetings = async () => {
+            try {
+                const res = await axios.post('/user/get-meetings', {
+                    email: userEmail,
+                    name: userName
+                })
+                setMeetings(res.data.meetings)
+                console.log(res.data.meetings)
+            } catch (error) {
+                console.error('Error fetching meetings:', error);
+            }
+        };
+
+        fetchMeetings();
+    }, [userEmail, userName]);
+
+    return (
+        <div className={styles.container}>
+            <h2 className={styles.title}>Upcoming Meetings</h2>
+            {meetings.length === 0 ? (
+                <p className={styles.noMeetings}>No upcoming meetings</p>
+            ) : (
+                <ul className={styles.meetingList}>
+                {meetings.map((meeting, index) => (
+                    <li key={index} className={styles.meetingItem}>
+                    <div className={styles.meetingDetails}>
+                        <strong>Day:</strong> {meeting.day} <br />
+                        <strong>Start Time:</strong> {meeting.start} <br />
+                        <strong>End Time:</strong> {meeting.end} <br />
+                        <Accordion className={styles.accordion}>
+                        <AccordionSummary>
+                            <strong>Attendees</strong>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <ul className={styles.attendeeList}>
+                            {meeting.attendees.map((att, idx) => (
+                                <li key={idx}>{att.name}</li>
+                            ))}
+                            </ul>
+                        </AccordionDetails>
+                        </Accordion>
+                    </div>
+                    </li>
+                ))}
+                </ul>
+            )}
+        </div>
+    );
+}
+
+export default Meetings;

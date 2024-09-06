@@ -1,0 +1,55 @@
+/* styles/schedule.module.css */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.employeeList {
+    margin-top: 20px;
+}
+
+.employeeItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.addButton {
+    background: #0070f3;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.addButton:hover {
+    background: #005bb5;
+}
+
+.modalButtons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modalButtons button {
+    margin-left: 10px;
+}

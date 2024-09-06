@@ -1,0 +1,99 @@
+.container {
+    width: 100%;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.employeeList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.employeeCard {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+}
+
+.employeeCard:hover {
+    transform: translateY(-5px);
+}
+
+.employeeLink {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.employeeInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.employeeName {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.employeeEmail {
+    color: #555;
+    font-size: 14px;
+}
+
+.availabilityBoxes {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.availabilityBox {
+    font-size: 14px;
+}
+
+.arrow {
+    font-size: 24px;
+    color: #888;
+    transition: color 0.2s ease;
+}
+
+.arrow:hover {
+    color: #000;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .employeeList {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .employeeCard {
+        padding: 10px;
+    }
+
+    .employeeName {
+        font-size: 14px;
+    }
+
+    .employeeEmail {
+        font-size: 12px;
+    }
+
+    .availabilityBox {
+        font-size: 12px;
+    }
+
+    .arrow {
+        font-size: 20px;
+    }
+}

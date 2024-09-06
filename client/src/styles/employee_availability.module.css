@@ -1,0 +1,49 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.availability {
+    margin-top: 20px;
+}
+
+.availabilityBoxes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.dayBox {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dayBox:hover {
+    background-color: #ccc;
+}
+
+.selected {
+    background-color: #333;
+    color: white;
+}
+
+.timePicker {
+    margin-top: 20px;
+    text-align: center;
+}
+
+input[type="time"] {
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

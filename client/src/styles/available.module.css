@@ -1,0 +1,99 @@
+/* Container for the entire availability page */
+.container {
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(135deg, #f0f4f8, #e2e8f0);
+  box-sizing: border-box;
+}
+
+/* Date display styling */
+.dateDisplay {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.dateDisplay h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+}
+
+/* Feature description */
+.featureDescription {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.featureDescription h6 {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #4a5568;
+  margin: 0;
+}
+
+/* Grid container for the day cards */
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+/* Individual day card styling */
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff, #e2e8f0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  padding: 16px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Responsive Typography */
+@media (max-width: 600px) {
+  .dateDisplay h3 {
+      font-size: 2rem;
+  }
+
+  .featureDescription h6 {
+      font-size: 1rem;
+  }
+
+  .card h2 {
+      font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* For larger screens, make the cards bigger and more evenly spaced */
+  .gridContainer {
+      grid-template-columns: repeat(7, 1fr);
+      gap: 20px;
+  }
+
+  .card {
+      height: 200px;
+      padding: 24px;
+  }
+
+  .card h2 {
+      font-size: 2rem;
+  }
+}
