@@ -5,7 +5,7 @@ A web-based application that allows users to dynamically set their availability 
 ## YouTube Link
 
 Link to Youtube where I have explained the project. It contains the walkthrough of the project
-[YouTube Link](https://youtu.be/mIa7glIovfE)
+[YouTube Link]()
 
 ## Features
 
@@ -22,9 +22,9 @@ Link to Youtube where I have explained the project. It contains the walkthrough 
 - **Backend:** Node.js, Express.js (with microservice architecture)
 - **Database:** MongoDB (for storing user information and session information)
 
-## API Routes
+# API Routes:
 
-- User API routes
+### User API routes
 
 ### 1. `/login`
 - **Method:** POST
@@ -54,7 +54,7 @@ Link to Youtube where I have explained the project. It contains the walkthrough 
 - **Method:** POST
 - **Description:** fetch all scheduled meetings
 
-- Admin API routes
+### Admin API routes
 
 ### 1. `/list-employees`
 - **Method:** POST
@@ -152,4 +152,3 @@ Link to Youtube where I have explained the project. It contains the walkthrough 
 - availability: available,
 - meetings: [meeting],
 - role: String,
-
