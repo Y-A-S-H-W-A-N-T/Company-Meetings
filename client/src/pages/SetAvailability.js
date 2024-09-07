@@ -6,6 +6,7 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import styles from '../styles/setavailable.module.css'
+import { CustomAlert } from  'alerts-react'
 
 const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -67,7 +68,13 @@ function SetAvailability() {
           setEndTime(null);
         });
     } else {
-      alert('Please enter valid start and end times.');
+      CustomAlert({
+          title: 'Invalid Time',
+          description: 'This is a 24hr format clock, choose time accordingly.',
+          type: 'warning',
+          showCancelButton: false,
+          onConfirm: ()=> {}
+      })
     }
   };
 

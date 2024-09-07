@@ -20,7 +20,7 @@ function Employees() {
     ];
 
     const fetch_employees = async () => {
-        await axios.post('/user/get-employees')
+        await axios.post('/admin/get-employees')
             .then((res) => {
                 setEmployees(res.data.employees)
                 console.log(res.data.employees)

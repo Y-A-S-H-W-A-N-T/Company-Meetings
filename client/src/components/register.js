@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import styles from '../styles/initial.module.css'
+import { CustomAlert } from  'alerts-react'
 
 function Register({ setLogin }) {
 
@@ -17,7 +18,13 @@ function Register({ setLogin }) {
             email: user.userEmail
         })
         .then(()=>{
-            window.location.reload()
+            CustomAlert({
+                title: 'You are Registered',
+                description: 'Login with your credentials',
+                type: 'success',
+                showCancelButton: false,
+                onConfirm: ()=> window.location.reload()
+            })
         })
     }
 
@@ -25,11 +32,11 @@ function Register({ setLogin }) {
   return (
     <div className={styles.container}>
         <div className={styles.form}>
-            <h2 className={styles.title}>Welcome Back</h2>
+            <h2 className={styles.title}>Sign Up</h2>
             <input 
                 className={styles.input}
                 type="email" 
-                placeholder="Email Address" 
+                placeholder="Email" 
                 value={user.userEmail} 
                 onChange={(e) => setUser((prev) => ({ ...prev, userEmail: e.target.value }))} 
             />

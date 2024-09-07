@@ -4,12 +4,15 @@ import styles from '../styles/meeting.module.css'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
+import { Button } from '@mui/material';
+import { CustomAlert } from  'alerts-react'
 
 function Meetings() {
     const [meetings, setMeetings] = useState([]);
 
     const userEmail = window.localStorage.getItem('userEmail');
     const userName = window.localStorage.getItem('userName');
+    const userRole = window.localStorage.getItem('userRole');
 
     useEffect(() => {
         const fetchMeetings = async () => {
@@ -28,6 +31,18 @@ function Meetings() {
         fetchMeetings();
     }, [userEmail, userName]);
 
+    const removeMeeting = async(start,end,day,attendees)=>{
+        await axios.post('/admin/remove-meeting',{start: start,end: end, attendees: attendees, day:day})
+        .then((res)=>{
+            CustomAlert({
+                title: 'Meeting Removed',
+                type: 'success',
+                showCancelButton: false,
+                onConfirm: ()=> window.location.reload()
+            })
+        })
+    }
+
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>Upcoming Meetings</h2>
@@ -38,6 +53,7 @@ function Meetings() {
                 {meetings.map((meeting, index) => (
                     <li key={index} className={styles.meetingItem}>
                     <div className={styles.meetingDetails}>
+                        {userRole==='admin' && <Button style={{backgroundColor: 'white', float: 'right', border: '2px red solid', color: 'red'}} onClick={()=>removeMeeting(meeting.start,meeting.end, meeting.day, meeting.attendees)}>Remove</Button>}
                         <strong>Day:</strong> {meeting.day} <br />
                         <strong>Duration:</strong> {meeting.start} - {meeting.end} <br />
                         <Accordion className={styles.accordion}>

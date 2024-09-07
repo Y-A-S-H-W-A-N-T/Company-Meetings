@@ -4,6 +4,9 @@ import axios from 'axios';
 import { Button, TextField, Typography } from '@mui/material';
 import styles from '../styles/employee_availability.module.css';
 import Schedule from '../components/schedule';
+import { CustomAlert } from  'alerts-react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Employee_Availability() {
     const { id } = useParams();
@@ -66,19 +69,19 @@ function Employee_Availability() {
 
     const handleScheduleMeeting = () => {
         if (!selectedTimeSlot) {
-            alert('Please select a time slot.');
+            toast("Please select a time slot")
             return;
         }
         if (!selectedStartTime || !selectedEndTime) {
-            alert('Please select both start and end times.');
+            toast("Please select both start and end times")
             return;
         }
         if (selectedStartTime < selectedTimeSlot.start || selectedEndTime > selectedTimeSlot.end) {
-            alert(`Please select a time between ${selectedTimeSlot.start} and ${selectedTimeSlot.end}.`);
+            toast(`Please select a time range between ${selectedTimeSlot.start} and ${selectedTimeSlot.end}`)
             return;
         }
         if (selectedEndTime <= selectedStartTime) {
-            alert('End time must be after the start time.');
+            toast("End time must be after the start time")
             return;
         }
         setIsModalOpen(true)
@@ -90,6 +93,7 @@ function Employee_Availability() {
 
     return (
         <div className={styles.container}>
+            <ToastContainer />
             <Typography variant="h4">Employee Availability</Typography>
             {employee && (
                 <>
@@ -155,8 +159,8 @@ function Employee_Availability() {
                     )}
 
                     {selectedDay && selectedTimeSlot && (
-                        <div className={styles.scheduleButton}>
-                            <Button variant="contained" color="primary" onClick={handleScheduleMeeting}>Schedule Meeting</Button>
+                        <div className={styles.scheduleButtonContainer}>
+                            <button className={styles.scheduleButton} onClick={handleScheduleMeeting}>Schedule Meeting</button>
                         </div>
                     )}
                     {

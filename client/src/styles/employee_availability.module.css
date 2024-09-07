@@ -43,12 +43,30 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   }
   
-  .scheduleButton {
+  .scheduleButtonContainer {
     display: flex;
     justify-content: center;
     margin-top: 20px;
   }
   
+  .scheduleButton {
+    border: 2px solid orchid;
+    border-radius: 20px;
+    background-color: white;
+    padding: 20px;
+    font-size: 0.9rem;
+    font-family: monospace;
+    box-shadow: 0px 4px 4px rgb(41, 40, 40);
+    transition: 600ms;
+  }
+
+  .scheduleButton:hover {
+    background-color: orchid;
+    transition: 600ms;
+    color: white;
+    box-shadow: 0px 0px 0px rgb(41, 40, 40);
+  }
+
   .dialogContent {
     display: flex;
     flex-direction: column;
