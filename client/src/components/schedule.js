@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/schedule.module.css';
 import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { CustomAlert } from  'alerts-react'
 
 const Schedule = ({ isOpen, onClose, employeeName, employeeEmail, startTime, endTime, day }) => {
     const userEmail = window.localStorage.getItem('userEmail');
     const userName = window.localStorage.getItem('userName');
+
+    const [loading,setLoading] = useState(false)
     
     const [employees, setEmployees] = useState([]);
     const [selectedEmployees, setSelectedEmployees] = useState([
@@ -37,7 +39,6 @@ const Schedule = ({ isOpen, onClose, employeeName, employeeEmail, startTime, end
     if (!isOpen) return null;
 
     const handleAddEmployee = (name,email) => {
-        // if he is already selected then do not select this employee
         const isEmployeeSelected = selectedEmployees.some((e) => e.email === email);
         if (!isEmployeeSelected) {
             setSelectedEmployees((prev) => [...prev,{ name: name, email: email }]);
@@ -45,27 +46,30 @@ const Schedule = ({ isOpen, onClose, employeeName, employeeEmail, startTime, end
     };
 
     const scheduleMeeting = async () => {
+        setLoading(true)
         try {
             await axios.post('/admin/schedule', {
                 employees: selectedEmployees,
                 day,
-                startTime,
-                endTime,
+                startTime: startTime.format('HH:mm'),
+                endTime: endTime.format('HH:mm'),
                 employeeEmail,
                 employeeName
-            });
-            CustomAlert({
-                title: 'Meeting Scheduled',
-                description: 'Meeting scheduled in your upcoming meetings',
-                type: 'success',
-                showCancelButton: false,
-                onConfirm: ()=> {}
+            }).then(()=>{
+                setLoading(false)
+                toast(`Meeting scheduled from ${startTime.format('HH:mm')} to ${endTime.format('HH:mm')} with ${employeeName}`)
+                CustomAlert({
+                    title: 'Meeting Scheduled',
+                    description: 'Meeting scheduled in your upcoming meetings',
+                    type: 'success',
+                    showCancelButton: false,
+                    onConfirm: ()=> {}
+                })
             })
         } catch (error) {
             console.error('Error scheduling meeting:', error);
         }
         onClose()
-        toast(`Meeting scheduled from ${startTime} to ${endTime} with ${employeeName}`)
     }
 
     return (
@@ -90,7 +94,7 @@ const Schedule = ({ isOpen, onClose, employeeName, employeeEmail, startTime, end
                 </div>
                 <div className={styles.modalButtons}>
                     <button onClick={onClose}>Cancel</button>
-                    <button onClick={scheduleMeeting}>Schedule</button>
+                    <button onClick={scheduleMeeting} disabled={loading}>{!loading?'Schedule':'Scheduling...'}</button>
                 </div>
             </div>
         </div>

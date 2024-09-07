@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom'
 import styles from '../styles/employees.module.css'
 import { Box, Typography, Card, CardContent, Chip } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import CircularProgress from '@mui/material/CircularProgress'
 
 function Employees() {
     const theme = useTheme();
     const [employees, setEmployees] = useState([])
+    const [loading,setLoading] = useState(false)
 
     const daysOfWeek = [
         { fullName: 'monday', shortName: 'Mon' },
@@ -20,10 +22,11 @@ function Employees() {
     ];
 
     const fetch_employees = async () => {
+        setLoading(true)
         await axios.post('/admin/get-employees')
             .then((res) => {
                 setEmployees(res.data.employees)
-                console.log(res.data.employees)
+                setLoading(false)
             })
     }
 
@@ -39,6 +42,7 @@ function Employees() {
             <Typography variant="h4" align="center" className={styles.header} fontFamily={'monospace'} color='orchid'>
                 EMPLOYEES
             </Typography>
+            {loading && <CircularProgress/>}
             <Box className={styles.employeeList}>
                 {employees && employees.map((employee, index) => (
                     <Card key={index} className={styles.employeeCard}>

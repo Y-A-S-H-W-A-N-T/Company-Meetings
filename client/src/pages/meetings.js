@@ -6,6 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import { Button } from '@mui/material';
 import { CustomAlert } from  'alerts-react'
+import CircularProgress from '@mui/material/CircularProgress'
 
 function Meetings() {
     const [meetings, setMeetings] = useState([]);
@@ -14,15 +15,18 @@ function Meetings() {
     const userName = window.localStorage.getItem('userName');
     const userRole = window.localStorage.getItem('userRole');
 
+    const [loading,setLoading] = useState(false)
+
     useEffect(() => {
         const fetchMeetings = async () => {
+            setLoading(true)
             try {
                 const res = await axios.post('/user/get-meetings', {
                     email: userEmail,
                     name: userName
                 })
                 setMeetings(res.data.meetings)
-                console.log(res.data.meetings)
+                setLoading(false)
             } catch (error) {
                 console.error('Error fetching meetings:', error);
             }
@@ -46,6 +50,7 @@ function Meetings() {
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>Upcoming Meetings</h2>
+            {loading && <CircularProgress/>}
             {meetings.length === 0 ? (
                 <p className={styles.noMeetings}>No upcoming meetings</p>
             ) : (

@@ -4,13 +4,20 @@ import axios from 'axios';
 import { Button, TextField, Typography } from '@mui/material';
 import styles from '../styles/employee_availability.module.css';
 import Schedule from '../components/schedule';
-import { CustomAlert } from  'alerts-react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CircularProgress from '@mui/material/CircularProgress'
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+
 
 function Employee_Availability() {
     const { id } = useParams();
     const employeeID = atob(id);
+
+    const [loading,setLoading] = useState(false)
 
     const [employee, setEmployee] = useState(null);
     const [selectedDay, setSelectedDay] = useState('');
@@ -30,9 +37,11 @@ function Employee_Availability() {
     ];
 
     async function fetchAvailability(){
+        setLoading(true)
         try {
-            const response = await axios.post(`/user/get-employees/${employeeID}`);
+            const response = await axios.post(`/user/get-employees/${employeeID}`)
             setEmployee(response.data.employee);
+            setLoading(false)
         } catch (error) {
             console.error('Error fetching employee data:', error);
         }
@@ -59,14 +68,6 @@ function Employee_Availability() {
         setSelectedEndTime('');
     };
 
-    const handleStartTimeChange = (e) => {
-        setSelectedStartTime(e.target.value);
-    };
-
-    const handleEndTimeChange = (e) => {
-        setSelectedEndTime(e.target.value);
-    };
-
     const handleScheduleMeeting = () => {
         if (!selectedTimeSlot) {
             toast("Please select a time slot")
@@ -76,7 +77,7 @@ function Employee_Availability() {
             toast("Please select both start and end times")
             return;
         }
-        if (selectedStartTime < selectedTimeSlot.start || selectedEndTime > selectedTimeSlot.end) {
+        if (selectedStartTime.format('HH:mm') < selectedTimeSlot.start || selectedEndTime.format('HH:mm') > selectedTimeSlot.end) {
             toast(`Please select a time range between ${selectedTimeSlot.start} and ${selectedTimeSlot.end}`)
             return;
         }
@@ -95,6 +96,7 @@ function Employee_Availability() {
         <div className={styles.container}>
             <ToastContainer />
             <Typography variant="h4">Employee Availability</Typography>
+            {loading && <CircularProgress/>}
             {employee && (
                 <>
                     <Typography variant="h6">Name: {employee.name}</Typography>
@@ -136,27 +138,35 @@ function Employee_Availability() {
                         </div>
                     )}
                     {selectedTimeSlot && (
-                        <div className={styles.timePicker}>
-                            <Typography variant="subtitle1">Available between: {selectedTimeSlot.start} to {selectedTimeSlot.end}</Typography>
-                            <Typography variant="subtitle1">Select start time for the selected slot:</Typography>
-                            <TextField
-                                type="time"
-                                value={selectedStartTime}
-                                onChange={handleStartTimeChange}
-                                sx={{ marginRight: 2 }}
-                            />
-                            {selectedStartTime && (
-                                <>
-                                    <Typography variant="subtitle1">Select end time:</Typography>
-                                    <TextField
-                                        type="time"
-                                        value={selectedEndTime}
-                                        onChange={handleEndTimeChange}
-                                    />
-                                </>
-                            )}
-                        </div>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <div className={styles.timePicker}>
+                                <Typography variant="subtitle1">Available between: {selectedTimeSlot.start} to {selectedTimeSlot.end}</Typography>
+                                
+                                <Typography variant="subtitle1">Select start time for the selected slot:</Typography>
+                                <TimePicker
+                                    value={dayjs(selectedStartTime)}
+                                    onChange={(newValue) => setSelectedStartTime(newValue)}
+                                    renderInput={(params) => <TextField {...params} sx={{ marginRight: 2 }} />}
+                                    minutesStep={30}
+                                    ampm={false}
+                                />
+                                
+                                {selectedStartTime && (
+                                    <>
+                                        <Typography variant="subtitle1">Select end time:</Typography>
+                                        <TimePicker
+                                            value={dayjs(selectedEndTime)}
+                                            onChange={(newValue) => setSelectedEndTime(newValue)}
+                                            renderInput={(params) => <TextField {...params} />}
+                                            minutesStep={30}
+                                            ampm={false}
+                                        />
+                                    </>
+                                )}
+                            </div>
+                        </LocalizationProvider>
                     )}
+
 
                     {selectedDay && selectedTimeSlot && (
                         <div className={styles.scheduleButtonContainer}>

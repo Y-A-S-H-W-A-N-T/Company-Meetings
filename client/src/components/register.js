@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import styles from '../styles/initial.module.css'
 import { CustomAlert } from  'alerts-react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 function Register({ setLogin }) {
 
@@ -9,10 +13,12 @@ function Register({ setLogin }) {
         userEmail: '',
         userName: ''
     })
+    
+    const [loading,setLoading] = useState(false)
 
     const Register = async()=>{
-        console.log(user)
-        if(user.userEmail === '' || user.userName === '') return alert("Enter all fields")
+        if(user.userEmail === '' || user.userName === '') return toast('Enter all fields')
+        setLoading(true)
         await axios.post('/user/register',{
             name: user.userName,
             email: user.userEmail
@@ -25,6 +31,7 @@ function Register({ setLogin }) {
                 showCancelButton: false,
                 onConfirm: ()=> window.location.reload()
             })
+            setLoading(false)
         })
     }
 
@@ -32,6 +39,7 @@ function Register({ setLogin }) {
   return (
     <div className={styles.container}>
         <div className={styles.form}>
+            <ToastContainer/>
             <h2 className={styles.title}>Sign Up</h2>
             <input 
                 className={styles.input}
@@ -47,7 +55,7 @@ function Register({ setLogin }) {
                 value={user.userName} 
                 onChange={(e) => setUser((prev) => ({ ...prev, userName: e.target.value }))} 
             />
-            <button className={styles.loginButton} onClick={Register}>Register</button>
+            {!loading?<button className={styles.loginButton} onClick={Register}>Register</button> : <CircularProgress/>}
             <p>already have an account? <span onClick={()=>setLogin(true)} style={{color: 'orchid', cursor: 'pointer'}}>Login</span></p>
         </div>
     </div>
