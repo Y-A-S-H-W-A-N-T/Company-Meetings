@@ -8,7 +8,7 @@ import Employees from './pages/employee';
 import Employee_Availability from './pages/employee_availability';
 import Meetings from './pages/meetings';
 
-axios.defaults.baseURL = 'http://localhost:8000/'
+axios.defaults.baseURL = 'https://company-meetings.onrender.com/'
 
 function App() {
   return (

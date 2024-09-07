@@ -20,27 +20,16 @@ router.post('/schedule', async (req,res) => {
     const { day, startTime, endTime, employeeEmail, employeeName, employees } = req.body;
 
     try {
-        // let scheduler = await Users.findOne({ email: employeeEmail, name: employeeName });
-        // if (!scheduler) {
-        //     return res.status(404).json({ message: "Scheduler not found" });
-        // }
-
-        // Prepare the attendees, including the scheduler
         const attendees = employees.map(employee => ({
             name: employee.name,
             email: employee.email
         }));
-
-        // The meeting object to be inserted
         const meeting = {
             day,
             start: startTime,
             end: endTime,
             attendees
         };
-
-        // scheduler.meetings.push(meeting);
-        // await scheduler.save();
 
         for (const attendee of attendees) {
             const attendeeUser = await Users.findOne({ email: attendee.email, name: attendee.name });
