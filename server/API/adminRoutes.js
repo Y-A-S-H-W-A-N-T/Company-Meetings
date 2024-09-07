@@ -20,11 +20,10 @@ router.post('/schedule', async (req,res) => {
     const { day, startTime, endTime, employeeEmail, employeeName, employees } = req.body;
 
     try {
-        // Find the user who is scheduling the meeting
-        let scheduler = await Users.findOne({ email: employeeEmail, name: employeeName });
-        if (!scheduler) {
-            return res.status(404).json({ message: "Scheduler not found" });
-        }
+        // let scheduler = await Users.findOne({ email: employeeEmail, name: employeeName });
+        // if (!scheduler) {
+        //     return res.status(404).json({ message: "Scheduler not found" });
+        // }
 
         // Prepare the attendees, including the scheduler
         const attendees = employees.map(employee => ({
@@ -40,9 +39,8 @@ router.post('/schedule', async (req,res) => {
             attendees
         };
 
-        // Add the meeting to the scheduler's meetings
-        scheduler.meetings.push(meeting);
-        await scheduler.save();
+        // scheduler.meetings.push(meeting);
+        // await scheduler.save();
 
         for (const attendee of attendees) {
             const attendeeUser = await Users.findOne({ email: attendee.email, name: attendee.name });

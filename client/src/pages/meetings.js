@@ -54,7 +54,7 @@ function Meetings() {
                     <li key={index} className={styles.meetingItem}>
                     <div className={styles.meetingDetails}>
                         {userRole==='admin' && <Button style={{backgroundColor: 'white', float: 'right', border: '2px red solid', color: 'red'}} onClick={()=>removeMeeting(meeting.start,meeting.end, meeting.day, meeting.attendees)}>Remove</Button>}
-                        <strong>Day:</strong> {meeting.day} <br />
+                        <strong>Day:</strong>{meeting.day.toUpperCase()}<br />
                         <strong>Duration:</strong> {meeting.start} - {meeting.end} <br />
                         <Accordion className={styles.accordion}>
                         <AccordionSummary expandIcon='&raquo;'>
